@@ -14,8 +14,18 @@ class CatController extends Controller
      */
     public function index()
     {
-        $listCats= Cat::all(); //select * from cats ;
+        // \DB::enableQueryLog();
+        // $listCats= Cat::onlyTrashed()->get(); //select * from cats ;
+        // $cat= Cat::withTrashed()->find(1);
+        // dd(\DB::getQueryLog());
         // dd($listCats);
+        // dd($cat);
+        // $cat->restore();
+        //force delete
+
+        $cat = Cat::find(2);
+        $cat->forceDelete();
+        dd('done');
         $breedId= 1;
         return view('cat.list_cat', compact('listCats', 'breedId'));
     }
@@ -27,7 +37,7 @@ class CatController extends Controller
      */
     public function create()
     {
-        //
+        return view('cat.form-create');
     }
 
     /**
@@ -38,7 +48,40 @@ class CatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $data = $request->all();
+        // $data = $request->except('_token');
+        $data = $request->only('name', 'age', 'breed_id');
+        // dd($data);
+        //c1 : hàm insert
+        // $result = Cat::insert($data); 
+        // dd($result);
+        //c2 : hàm create
+        $cat = Cat::create($data);
+        // dd($cat);
+
+        //tạo nhiều record
+
+        $data = [
+            [
+                'name' => 'catt 1',
+                'age' => 18,
+                'breed_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'name' => 'catt 2',
+                'age' => 20,
+                'breed_id' => 2,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]
+        ];
+
+        Cat::insert($data);
+        return redirect()->route('list-cat');
+
+
     }
 
     /**
@@ -83,6 +126,12 @@ class CatController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //c1 
+        // $cat= Cat::find($id);
+        // // dd($cat);
+        // $cat->delete();
+        //c2
+        Cat::destroy($id);
+        return redirect()->route('list-cat');
     }
 }

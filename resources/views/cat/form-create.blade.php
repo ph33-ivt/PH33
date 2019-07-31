@@ -69,36 +69,18 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    List Cat
+                    Create Cat
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <td>ID</td>
-                            <td>Name</td>
-                            <td>Age</td>
-                            <td>Breed ID</td>
-                            <td>Created At</td>
-                            <td>Updated At</td>
-                            <td>Deleted At</td>
-                            <td>Action</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($listCats as $cat)
-                            <tr>
-                                <td>{{ $cat->id }}</td>
-                                <td>{{ $cat->name }}</td>
-                                <td>{{ $cat->age }}</td>
-                                <td>{{ $cat->breed_id }}</td>
-                                <td>{{ $cat->created_at }}</td>
-                                <td>{{ $cat->updated_at }}</td>
-                                <td>{{ $cat->deleted_at }}</td>
-                                <td><a href="{{route('delete-cat', $cat->id) }}">Delete</a></td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <form action="{{ route('store-cat') }}" method="POST">
+                    @csrf
+                    <label>Name:</label>
+                    <input type="text" name="name">
+                    <label>Age:</label>
+                    <input type="text" name="age">
+                    <label>Breed ID</label>
+                    <input type="text" name="breed_id">
+                    <button type="submit">Create</button>
+                </form>
 
                 
             </div>
