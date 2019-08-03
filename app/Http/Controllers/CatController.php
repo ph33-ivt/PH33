@@ -56,26 +56,6 @@ class CatController extends Controller
         $cat = Cat::create($data);
         // dd($cat);
 
-        //tạo nhiều record
-
-        // $data = [
-        //     [
-        //         'name' => 'catt 1',
-        //         'age' => 18,
-        //         'breed_id' => 1,
-        //         'created_at' => now(),
-        //         'updated_at' => now()
-        //     ],
-        //     [
-        //         'name' => 'catt 2',
-        //         'age' => 20,
-        //         'breed_id' => 2,
-        //         'created_at' => now(),
-        //         'updated_at' => now()
-        //     ]
-        // ];
-
-        // Cat::insert($data);
         return redirect()->route('list-cat');
 
 
