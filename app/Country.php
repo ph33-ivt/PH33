@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Breed extends Model
+class Country extends Model
 {
     protected $fillable = [
     	'name'
     ];
 
-    public function cats()
+    public function posts()
     {
-    	return $this->hasMany('App\Cat');
+    	return $this->hasManyThrough('App\Post', 'App\User');
     }
 }

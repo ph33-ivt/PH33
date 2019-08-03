@@ -23,3 +23,9 @@ Route::get('/cats/create', 'CatController@create')->name('form-create-cat');
 Route::post('/cats', 'CatController@store')->name('store-cat');
 //delete cat
 Route::get('/cats/{id}', 'CatController@destroy')->name('delete-cat');
+// show breed
+Route::get('/breeds/{id}', 'BreedController@show')->name('show-breed');
+//list all post of country
+Route::get('/countries/{id}/posts', 'CountryController@listPostByCountryId')->name('list-post-of-country');
+
+

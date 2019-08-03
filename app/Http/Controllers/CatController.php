@@ -23,11 +23,8 @@ class CatController extends Controller
         // $cat->restore();
         //force delete
 
-        $cat = Cat::find(2);
-        $cat->forceDelete();
-        dd('done');
-        $breedId= 1;
-        return view('cat.list_cat', compact('listCats', 'breedId'));
+        $listCats = Cat::all();
+        return view('cat.list_cat', compact('listCats'));
     }
 
     /**
@@ -61,24 +58,24 @@ class CatController extends Controller
 
         //tạo nhiều record
 
-        $data = [
-            [
-                'name' => 'catt 1',
-                'age' => 18,
-                'breed_id' => 1,
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'name' => 'catt 2',
-                'age' => 20,
-                'breed_id' => 2,
-                'created_at' => now(),
-                'updated_at' => now()
-            ]
-        ];
+        // $data = [
+        //     [
+        //         'name' => 'catt 1',
+        //         'age' => 18,
+        //         'breed_id' => 1,
+        //         'created_at' => now(),
+        //         'updated_at' => now()
+        //     ],
+        //     [
+        //         'name' => 'catt 2',
+        //         'age' => 20,
+        //         'breed_id' => 2,
+        //         'created_at' => now(),
+        //         'updated_at' => now()
+        //     ]
+        // ];
 
-        Cat::insert($data);
+        // Cat::insert($data);
         return redirect()->route('list-cat');
 
 
