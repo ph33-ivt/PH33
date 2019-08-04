@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -66,7 +67,22 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'country_id' => $data['country_id'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function register(Request $request)
+    {
+        $data = $request->except('country_id');
+        $data['country_id']= 1;
+        $validator= $this->validator($data);
+        if(!$validator->fails())
+        {
+            $user= User::create($data);
+            $this->guard()->login($user);
+            return redirect()->route('home');
+        }
+        return redirect()->back()->with('fail', $validator->errors());
     }
 }

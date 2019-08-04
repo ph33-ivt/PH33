@@ -29,3 +29,7 @@ Route::get('/breeds/{id}', 'BreedController@show')->name('show-breed');
 Route::get('/countries/{id}/posts', 'CountryController@listPostByCountryId')->name('list-post-of-country');
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
