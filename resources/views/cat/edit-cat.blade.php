@@ -69,30 +69,55 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Create Cat
+                    Edit Cat : {{$cat->name}}
                 </div>
-                <form action="{{ route('store-cat') }}" method="POST">
+                <form action="{{route('update-cat', $cat->id)}}" method="POST">
                     @csrf
-                    <label>Name:</label>
-                    <input type="text" name="name" value="{{old('name')}}">
+                    @method('PUT')
+                    {{--<label>Name:</label>
+                    @if(old('name') || $errors->has('name'))
+                    <input type="text" name="name" value="{{ old('name') }}">
+                    @elseif (!$errors->has('name'))
+                        <input type="text" name="name" value="{{$cat->name}}">
+                    @endif
                     @if($errors->has('name'))
                         <p style="color: red;">{{$errors->first('name')}}</p>
                     @endif
                     <label>Age:</label>
-                    <input type="text" name="age" value="{{old('age')}}">
+                    @if(old('age') || $errors->has('age'))
+                        <input type="text" name="age" value="{{old('age')}}">
+                    @elseif (!$errors->has('age'))
+                        <input type="text" name="age" value="{{$cat->age}}">
+                    @endif
                     @if($errors->has('age'))
                         <p style="color: red;">{{$errors->first('age')}}</p>
                     @endif
                     <label>Breed ID</label>
                     <select name="breed_id">
                         @foreach($listBreed as $breed)
-                            <option value="{{$breed->id}}" {{$breed->id == old('breed_id') ? 'selected' : ''}}>{{$breed->name}}</option>
+                            @if(old('breed_id'))
+                                <option value="{{$breed->id}}" {{$breed->id == old('breed_id') ? 'selected' : ''}}>{{$breed->name}}</option>
+                            @else
+                                <option value="{{$breed->id}}" {{$breed->id == $cat->breed_id ? 'selected' : ''}}>{{$breed->name}}</option>
+                            @endif
                         @endforeach
                     </select>
                     @if($errors->has('breed_id'))
                         <p style="color: red;">{{$errors->first('breed_id')}}</p>
-                    @endif
-                    <button type="submit">Create</button>
+                    @endif--}}
+
+                    <!-- -->
+                    <label>Name:</label>
+                    <input type="text" name="name" value="{{ $cat->name }}">
+                    <label>Age:</label>
+                    <input type="text" name="age" value="{{$cat->age}}">
+                    <label>Breed ID</label>
+                    <select name="breed_id">
+                        @foreach($listBreed as $breed)
+                            <option value="{{$breed->id}}" {{$breed->id == $cat->breed_id ? 'selected' : ''}}>{{$breed->name}}</option>
+                        @endforeach
+                    </select>
+                    <button type="submit">Update</button>
                 </form>
 
                 

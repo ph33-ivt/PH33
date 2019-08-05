@@ -7,6 +7,10 @@ use App\Breed;
 
 class BreedController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('isAdmin');
+    }
     /**
      * Display a listing of the resource.
      *

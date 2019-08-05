@@ -79,6 +79,7 @@ class RegisterController extends Controller
         $validator= $this->validator($data);
         if(!$validator->fails())
         {
+            $data['password'] = bcrypt($data['password']);
             $user= User::create($data);
             $this->guard()->login($user);
             return redirect()->route('home');

@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Cat;
+use App\Http\Requests\CreateCatRequest;
+use App\Breed;
+use App\Http\Requests\UpdateCatRequest;
 
 class CatController extends Controller
 {
+    public function __construct()
+    {
+        // $this->middleware('isAdmin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +41,8 @@ class CatController extends Controller
      */
     public function create()
     {
-        return view('cat.form-create');
+        $listBreed = Breed::all();
+        return view('cat.form-create', compact('listBreed'));
     }
 
     /**
@@ -43,7 +51,7 @@ class CatController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateCatRequest $request)
     {
         // $data = $request->all();
         // $data = $request->except('_token');
@@ -80,7 +88,9 @@ class CatController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cat = Cat::find($id);
+        $listBreed = Breed::all();
+        return view('cat.edit-cat', compact('cat', 'listBreed'));
     }
 
     /**
@@ -90,9 +100,12 @@ class CatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCatRequest $request, $id)
     {
-        //
+        $data = $request->except('_token', '_method');
+        $cat= Cat::find($id);
+        $cat->update($data);
+        return redirect()->route('list-cat');
     }
 
     /**

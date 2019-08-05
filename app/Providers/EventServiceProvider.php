@@ -31,7 +31,7 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        Cat::observe(CatObserver::class);
+        // Cat::observe(CatObserver::class);
         // User::observe(UserObserver::class);
 
     }
